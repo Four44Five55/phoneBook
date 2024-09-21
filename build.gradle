@@ -1,0 +1,35 @@
+plugins {
+  id 'java'
+  id 'application'
+  id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+group 'ru.javabegin.javafx'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+}
+
+application {
+  mainModule = 'ru.javabegin.javafx.addressbook'
+  mainClass = 'ru.javabegin.javafx.addressbook.controller.Main'
+}
+
+javafx {
+  version = '17.0.2'
+  modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+  implementation ('org.xerial:sqlite-jdbc:3.40.0.0')
+}
+
