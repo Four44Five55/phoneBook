@@ -4,7 +4,7 @@ plugins {
   id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-group 'ru.javabegin.javafx'
+group 'ru.example.javafx'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -20,8 +20,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-  mainModule = 'ru.javabegin.javafx.addressbook'
-  mainClass = 'ru.javabegin.javafx.addressbook.controller.Main'
+  mainModule = 'ru.example.phonebook'
+  mainClass = 'ru.example.phonebook.controller.Main'
 }
 
 javafx {

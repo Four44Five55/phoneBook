@@ -3,9 +3,9 @@ module ru.example.phonebook {
     requires javafx.fxml;
     requires java.sql;
 
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-
     opens ru.example.phonebook to javafx.fxml;
+    opens ru.example.phonebook.objects to javafx.base;
+
     exports ru.example.phonebook;
+    exports ru.example.phonebook.controller;
 }
