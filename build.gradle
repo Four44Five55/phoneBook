@@ -4,7 +4,7 @@ plugins {
   id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-group 'ru.example.javafx'
+group 'ru.example'
 version '1.0-SNAPSHOT'
 
 repositories {

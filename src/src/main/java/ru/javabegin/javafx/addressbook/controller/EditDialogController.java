@@ -1,4 +1,4 @@
-package ru.javabegin.javafx.addressbook.controller;
+package ru.example.phonebook.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

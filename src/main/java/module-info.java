@@ -3,7 +3,7 @@ module ru.example.phonebook {
     requires javafx.fxml;
     requires java.sql;
 
-    opens ru.example.phonebook to javafx.fxml;
+    opens ru.example.phonebook.controller to javafx.fxml;
     opens ru.example.phonebook.objects to javafx.base;
 
     exports ru.example.phonebook;
