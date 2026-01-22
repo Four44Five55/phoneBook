@@ -19,7 +19,7 @@ public class SQLiteConnection {
         if (connection == null || connection.isClosed()){
             try {
 
-                String url = "jdbc:sqlite:db"+ File.separator+"addressbook.db";
+                String url = "jdbc:sqlite:db"+ File.separator+"phonebook.db";
                 connection = DriverManager.getConnection(url);
 
             } catch (SQLException ex) {

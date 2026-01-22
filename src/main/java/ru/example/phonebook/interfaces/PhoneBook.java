@@ -6,9 +6,10 @@ import ru.example.phonebook.objects.Person;
 
 
 // Интерфейс для доступа к данным (API для запросов в БД)
-// Используется паттерн DAO - Data Access Object, чтобы можно было продключать любой источник данных, а API не менялось
+// Используется паттерн DAO - Data Access Object, чтобы можно было продключать любой источник данных,
+// а API не менялось
 // Минимальный функционал CRUD - create read update delete
-public interface AddressBook {
+public interface PhoneBook {
 
     boolean add(Person person);
 

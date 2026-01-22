@@ -10,6 +10,8 @@ public class Person {
     private SimpleIntegerProperty id = new SimpleIntegerProperty();
     private SimpleStringProperty fio = new SimpleStringProperty("");
     private SimpleStringProperty phone = new SimpleStringProperty("");
+    private SimpleStringProperty department = new SimpleStringProperty("");
+    private SimpleStringProperty notes = new SimpleStringProperty("");
 
 
     public Person() {
@@ -20,10 +22,37 @@ public class Person {
         this.phone = new SimpleStringProperty(phone);
     }
 
+    public Person(String fio, String phone, String department) {
+        this.fio = new SimpleStringProperty(fio);
+        this.phone = new SimpleStringProperty(phone);
+        this.department = new SimpleStringProperty(department);
+    }
+
+    public Person(String fio, String phone, String department, String notes) {
+        this.fio = new SimpleStringProperty(fio);
+        this.phone = new SimpleStringProperty(phone);
+        this.department = new SimpleStringProperty(department);
+        this.notes = new SimpleStringProperty(notes);
+    }
 
     public Person(int id, String fio, String phone) {
         this.fio = new SimpleStringProperty(fio);
         this.phone = new SimpleStringProperty(phone);
+        this.id = new SimpleIntegerProperty(id);
+    }
+
+    public Person(int id, String fio, String phone, String department) {
+        this.fio = new SimpleStringProperty(fio);
+        this.phone = new SimpleStringProperty(phone);
+        this.department = new SimpleStringProperty(department);
+        this.id = new SimpleIntegerProperty(id);
+    }
+
+    public Person(int id, String fio, String phone, String department, String notes) {
+        this.fio = new SimpleStringProperty(fio);
+        this.phone = new SimpleStringProperty(phone);
+        this.department = new SimpleStringProperty(department);
+        this.notes = new SimpleStringProperty(notes);
         this.id = new SimpleIntegerProperty(id);
     }
 
@@ -43,6 +72,14 @@ public class Person {
         this.phone.set(phone);
     }
 
+    public String getDepartment() {
+        return department.get();
+    }
+
+    public void setDepartment(String department) {
+        this.department.set(department);
+    }
+
 
     public SimpleStringProperty fioProperty() {
         return fio;
@@ -50,6 +87,22 @@ public class Person {
 
     public SimpleStringProperty phoneProperty() {
         return phone;
+    }
+
+    public SimpleStringProperty departmentProperty() {
+        return department;
+    }
+
+    public String getNotes() {
+        return notes.get();
+    }
+
+    public void setNotes(String notes) {
+        this.notes.set(notes);
+    }
+
+    public SimpleStringProperty notesProperty() {
+        return notes;
     }
 
 
@@ -71,6 +124,8 @@ public class Person {
         return "Person{" +
                 "fio='" + fio + '\'' +
                 ", phone='" + phone + '\'' +
+                ", department='" + department + '\'' +
+                ", notes='" + notes + '\'' +
                 '}';
     }
 }
