@@ -1,4 +1,4 @@
-package ru.javabegin.javafx.addressbook.utils;
+package ru.example.phonebook.utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

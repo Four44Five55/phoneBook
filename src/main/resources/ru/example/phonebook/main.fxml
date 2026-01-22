@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.example.phonebook.controller.MainController">
+  <children>
+    <HBox alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="100.0" styleClass="hbox-button-panel">
+      <children>
+        <Button fx:id="btnAdd" minWidth="80.0" mnemonicParsing="false" onAction="#buttonActionPressed" prefWidth="150.0" text="Добавить">
+          <HBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </HBox.margin>
+        </Button>
+        <Button fx:id="btnEdit" minWidth="80.0" mnemonicParsing="false" onAction="#buttonActionPressed" prefWidth="150.0" text="Редактировать">
+          <HBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </HBox.margin>
+        </Button>
+        <Button fx:id="btnDelete" minWidth="80.0" mnemonicParsing="false" onAction="#buttonActionPressed" prefWidth="150.0" text="Удалить">
+          <HBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </HBox.margin>
+        </Button>
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="btnImport" mnemonicParsing="false" onAction="#importFromCSV" text="📥 Импорт">
+          <HBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </HBox.margin>
+        </Button>
+        <Button fx:id="btnExport" mnemonicParsing="false" onAction="#exportToCSV" text="📤 Экспорт">
+          <HBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </HBox.margin>
+        </Button>
+        <Button fx:id="btnTheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="theme-btn" text="🌙">
+          <HBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </HBox.margin>
+        </Button>
+      </children>
+    </HBox>
+    <AnchorPane maxHeight="30.0" prefHeight="100.0" styleClass="search-panel">
+      <children>
+        <TextField fx:id="txtSearch" prefHeight="31.0" prefWidth="293.0" promptText="Поиск..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      </children>
+      <VBox.margin>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </VBox.margin>
+    </AnchorPane>
+    <AnchorPane prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <children>
+        <TableView fx:id="tablePhoneBook" prefHeight="400.0" prefWidth="357.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <columns>
+            <TableColumn fx:id="columnFIO" minWidth="200.0" prefWidth="250.0" text="ФИО" />
+            <TableColumn fx:id="columnDepartment" minWidth="7.0" prefWidth="7.0" text="Отдел" />
+            <TableColumn fx:id="columnPhone" minWidth="50.0" prefWidth="60.0" text="Тел." />
+            <TableColumn fx:id="columnNotes" minWidth="75.0" prefWidth="75.0" text="Примечание" />
+          </columns>
+          <columnResizePolicy>
+            <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY" />
+          </columnResizePolicy>
+        </TableView>
+
+
+      </children>
+      <VBox.margin>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </VBox.margin>
+    </AnchorPane>
+      <AnchorPane prefHeight="100.0" prefWidth="200.0" styleClass="padding-left-20">
+         <children>
+          <Label fx:id="labelCount" layoutX="21.0" layoutY="62.0" text="Количество" AnchorPane.bottomAnchor="14.799999999999997" AnchorPane.leftAnchor="21.0" />
+         </children>
+      </AnchorPane>
+
+  </children>
+</VBox>

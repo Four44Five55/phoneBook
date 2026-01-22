@@ -1,4 +1,4 @@
-package ru.javabegin.javafx.addressbook.db;
+package ru.example.phonebook.db;
 
 import java.io.File;
 import java.sql.Connection;
@@ -19,7 +19,7 @@ public class SQLiteConnection {
         if (connection == null || connection.isClosed()){
             try {
 
-                String url = "jdbc:sqlite:db"+ File.separator+"addressbook.db";
+                String url = "jdbc:sqlite:db"+ File.separator+"phonebook.db";
                 connection = DriverManager.getConnection(url);
 
             } catch (SQLException ex) {

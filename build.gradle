@@ -2,15 +2,19 @@ plugins {
   id 'java'
   id 'application'
   id 'org.openjfx.javafxplugin' version '0.0.13'
+  id 'idea'
 }
 
-group 'ru.javabegin.javafx'
+group 'ru.example.javafx'
 version '1.0-SNAPSHOT'
 
 repositories {
   mavenCentral()
 }
 
+compileJava {
+  options.compilerArgs << "-Xlint:unchecked"
+}
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
@@ -20,8 +24,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-  mainModule = 'ru.javabegin.javafx.addressbook'
-  mainClass = 'ru.javabegin.javafx.addressbook.controller.Main'
+  mainModule = 'ru.example.phonebook'
+  mainClass = 'ru.example.phonebook.Main'
 }
 
 javafx {
@@ -30,6 +34,186 @@ javafx {
 }
 
 dependencies {
-  implementation ('org.xerial:sqlite-jdbc:3.40.0.0')
+  implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
 }
 
+sourceSets {
+  main {
+    resources {
+      srcDirs = ['src/main/resources']
+    }
+  }
+}
+
+// Task to generate IDEA run configuration with JavaFX VM options
+task createRunConfig {
+  doLast {
+    def runConfigDir = file('.idea/runConfigurations')
+    if (!runConfigDir.exists()) {
+      runConfigDir.mkdirs()
+    }
+
+    // Find JavaFX JARs in Gradle cache
+    def javafxJars = []
+    configurations.runtimeClasspath.each { file ->
+      if (file.name.startsWith('javafx-')) {
+        javafxJars.add(file.absolutePath)
+      }
+    }
+
+    def modulePath = javafxJars.join(';')
+
+    def runConfigContent = """<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PhoneBook" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="ru.example.phonebook.Main" />
+    <module name="phonebook.main" />
+    <option name="VM_PARAMETERS" value="--module-path &quot;${modulePath}&quot; --add-modules javafx.controls,javafx.fxml" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="ru.example.phonebook.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>"""
+
+    def runConfigFile = file('.idea/runConfigurations/PhoneBook.xml')
+    runConfigFile.text = runConfigContent
+    println "Created IDEA run configuration at: ${runConfigFile.absolutePath}"
+  }
+}
+
+// Make sure createRunConfig runs after build
+build.finalizedBy(createRunConfig)
+
+// Создание dist-папки для запуска без IDEA
+task dist {
+  dependsOn 'jar'
+
+  doLast {
+    // Очищаем и создаём папки
+    delete file("dist")
+    def distDir = file("dist")
+    def libDir = file("dist/lib")
+    distDir.mkdirs()
+    libDir.mkdirs()
+
+    // Копируем основной JAR
+    copy {
+      from file("build/libs")
+      into distDir
+      include '*.jar'
+    }
+
+    // Копируем только зависимости с реальным кодом (исключаем stub JAR без -win/-linux)
+    copy {
+      from configurations.runtimeClasspath
+      into libDir
+      exclude '*-17.0.2.jar'  // исключаем stub JAR
+    }
+
+    // Копируем БД
+    copy {
+      from file("db/phonebook.db")
+      into distDir
+    }
+
+    // Создаём bat-файл для запуска
+    file("dist/run.bat").text = '''@echo off
+setlocal enabledelayedexpansion
+cd /d "%~dp0"
+set MODULE_PATH=lib
+set CP=phonebook-1.0-SNAPSHOT.jar
+for %%i in (lib\\*.jar) do set CP=!CP!;%%i
+start javaw --module-path "%MODULE_PATH%" --add-modules javafx.controls,javafx.fxml -cp "%CP%" ru.example.phonebook.Main
+endlocal
+'''
+  }
+}
+
+// Создание портативной версии с встроенным JRE
+task portable {
+  dependsOn 'jar'
+
+  doFirst {
+    // Подготавливаем входную папку для jpackage
+    def jpackageInput = file("build/jpackage-input")
+    delete jpackageInput
+    jpackageInput.mkdirs()
+
+    // Копируем основной JAR
+    copy {
+      from file("build/libs")
+      into jpackageInput
+      include '*.jar'
+    }
+
+    // Копируем все зависимости в одну папку
+    copy {
+      from configurations.runtimeClasspath
+      into jpackageInput
+    }
+
+    // Находим JavaFX JARs для модульного пути
+    def javafxJars = []
+    configurations.runtimeClasspath.each { file ->
+      if (file.name.startsWith('javafx-')) {
+        javafxJars.add(file.absolutePath)
+      }
+    }
+    def modulePath = javafxJars.join(File.pathSeparator)
+
+    // Создаём временную папку для runtime image
+    def runtimeDir = file("build/jpackage-runtime")
+    delete runtimeDir
+
+    // Создаём кастомный runtime с помощью jlink
+    exec {
+      commandLine 'jlink',
+        '--module-path', modulePath,
+        '--add-modules', 'javafx.controls,javafx.fxml,java.sql,java.logging',
+        '--output', runtimeDir.absolutePath,
+        '--strip-native-commands',
+        '--no-header-files',
+        '--no-man-pages',
+        '--compress', 'zip-2'
+    }
+  }
+
+  doLast {
+    def jpackageInput = file("build/jpackage-input")
+    def runtimeDir = file("build/jpackage-runtime")
+
+    // Удаляем предыдущую сборку
+    delete file("build/PhoneBook")
+
+    // Запускаем jpackage
+    exec {
+      commandLine 'jpackage',
+        '--type', 'app-image',
+        '--input', jpackageInput.absolutePath,
+        '--dest', 'build',
+        '--name', 'PhoneBook',
+        '--main-jar', 'phonebook-1.0-SNAPSHOT.jar',
+        '--main-class', 'ru.example.phonebook.Main',
+        '--runtime-image', runtimeDir.absolutePath
+    }
+
+    // Создаём папку для БД в приложении
+    def dbDir = file("build/PhoneBook/db")
+    dbDir.mkdirs()
+    copy {
+      from file("db/phonebook.db")
+      into dbDir
+    }
+
+    println "============================================"
+    println "Портативная версия создана!"
+    println "Расположение: ${file('build/PhoneBook').absolutePath}"
+    println "Для запуска используйте: PhoneBook.exe"
+    println "============================================"
+  }
+}

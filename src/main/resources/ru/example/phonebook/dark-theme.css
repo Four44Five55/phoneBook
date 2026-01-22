@@ -1,0 +1,159 @@
+/* Темная тема - современный минималистичный стиль */
+
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background: #1e1e1e;
+    -fx-base: #2d2d2d;
+    -fx-control-inner-background: #2d2d2d;
+    -fx-control-inner-background-alt: #252525;
+    -fx-focus-color: #74c0fc;
+    -fx-faint-focus-color: #74c0fc33;
+    -fx-text-base-color: #e0e0e0;
+    -fx-text-fill: #e0e0e0;
+    -fx-accent: #74c0fc;
+}
+
+/* Фон приложения */
+.background {
+    -fx-background-color: #1e1e1e;
+}
+
+/* Кнопки - единый стиль для всех, светлее основного фона */
+.button {
+    -fx-background-color: #9ca3af;
+    -fx-text-fill: #1e1e1e;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 8px 20px;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(156, 163, 175, 0.4), 4, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #d1d5db;
+    -fx-effect: dropshadow(gaussian, rgba(156, 163, 175, 0.6), 6, 0, 0, 2);
+}
+
+.button:pressed {
+    -fx-background-color: #6b7280;
+    -fx-effect: dropshadow(gaussian, rgba(156, 163, 175, 0.3), 2, 0, 0, 1);
+}
+
+.button:focused {
+    -fx-border-color: #9ca3af;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+}
+
+/* Кнопка переключения темы */
+.button.theme-btn {
+    -fx-background-color: #6b7280;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 6px 16px;
+    -fx-font-size: 12px;
+}
+
+.button.theme-btn:hover {
+    -fx-background-color: #9ca3af;
+}
+
+/* Текстовые поля */
+.text-field {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 6;
+    -fx-border-color: #424242;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-padding: 8px 12px;
+    -fx-text-fill: #e0e0e0;
+}
+
+.text-field:focused {
+    -fx-border-color: #74c0fc;
+    -fx-border-width: 2;
+}
+
+/* Таблица */
+.table-view {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 0, 0);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #252525;
+    -fx-border-color: #424242;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: #252525;
+    -fx-size: 40;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+    -fx-text-fill: #b0b0b0;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #2d2d2d;
+    -fx-border-color: #3d3d3d;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #282828;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #1c5d8a;
+    -fx-text-fill: #ffffff;
+}
+
+.table-view .table-row-cell:hover:selected {
+    -fx-background-color: #1864ab;
+}
+
+.table-view .table-row-cell:hover:selected {
+    -fx-background-color: #353535;
+}
+
+.table-view .table-cell {
+    -fx-padding: 12px;
+    -fx-text-fill: #c0c0c0;
+}
+
+/* Метки */
+.label {
+    -fx-text-fill: #b0b0b0;
+    -fx-font-size: 13px;
+}
+
+/* HBox для кнопок */
+.hbox-button-panel {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 0);
+}
+
+/* AnchorPane для поиска */
+.search-panel {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 0);
+}
+
+/* ScrollBar */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #616161;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #757575;
+}

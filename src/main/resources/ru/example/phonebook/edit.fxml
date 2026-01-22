@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="400.0" prefHeight="400.0" prefWidth="500.0" spacing="15" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.example.phonebook.controller.EditDialogController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 
+   <!-- Поля ввода -->
+   <VBox spacing="10">
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <Label minWidth="80" text="ФИО:" />
+         <TextField fx:id="txtFIO" HBox.hgrow="ALWAYS" />
+      </HBox>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.example.phonebook.Edit">
-   <children>
-      <TextField layoutX="14.0" layoutY="74.0" prefHeight="25.0" prefWidth="324.0" AnchorPane.bottomAnchor="301.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="262.0" AnchorPane.topAnchor="74.0" />
-   </children>
-</AnchorPane>
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <Label minWidth="80" text="Отдел:" />
+         <TextField fx:id="txtDepartment" promptText="Не обязательно" HBox.hgrow="ALWAYS" />
+      </HBox>
+
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <Label minWidth="80" text="Тел. 1:" />
+         <TextField fx:id="txtPhone1" HBox.hgrow="ALWAYS" />
+      </HBox>
+
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <Label minWidth="80" text="Тел. 2:" />
+         <TextField fx:id="txtPhone2" promptText="необязательно" HBox.hgrow="ALWAYS" />
+      </HBox>
+
+      <VBox spacing="5" VBox.vgrow="ALWAYS">
+         <Label text="Примечание:" />
+         <TextArea fx:id="txtNotes" promptText="Не обязательно" wrapText="true" VBox.vgrow="ALWAYS" />
+      </VBox>
+   </VBox>
+
+   <!-- Кнопки -->
+   <HBox spacing="10" alignment="CENTER_RIGHT">
+      <Region HBox.hgrow="ALWAYS" />
+      <Button fx:id="btnOk" onAction="#actionSave" defaultButton="true" mnemonicParsing="false" prefWidth="100.0" text="ОК" />
+      <Button fx:id="btnCancel" onAction="#actionClose" cancelButton="true" mnemonicParsing="false" prefWidth="100.0" text="Отмена" />
+   </HBox>
+
+</VBox>
